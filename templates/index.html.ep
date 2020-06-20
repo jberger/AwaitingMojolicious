@@ -1,0 +1,64 @@
+<section>
+  <h2>Awaiting Mojolicious</h2>
+  <p>Joel Berger</p>
+</section>
+
+<section>
+  <section>
+    <h2>Hello World!</h2>
+    %= include_sample 'ex/hello/world/app.pl'
+  </section>
+
+  <section>
+    <h2>Hello World! Test</h2>
+    %= include_sample 'ex/hello/world/test.t', lang => 'perl'
+  </section>
+</section>
+
+<section>
+  <section>
+    <h2>Hello User!</h2>
+    %= include_sample 'ex/hello/user/app.pl'
+  </section>
+
+  <section>
+    <h2>Hello User! Test</h2>
+    %= include_sample 'ex/hello/user/test.t#tests', lang => 'perl'
+  </section>
+</section>
+
+%#TODO CSS Selectors
+
+<section>
+  <section>
+    <h2>Templates</h2>
+    %= include_sample 'ex/hello/template/app.pl'
+  </section>
+
+  <section>
+    <h2>CSS Selectors in Tests</h2>
+    %= include_sample 'ex/hello/template/test.t#tests', lang => 'perl'
+  </section>
+</section>
+
+<section>
+  <section>
+    <h2>Content Negotiation</h2>
+    %= include_sample 'ex/hello/content_negotiation/app.pl'
+  </section>
+
+  <section>
+    <h2>Testing Content Negotiation</h2>
+    %= include_sample 'ex/hello/content_negotiation/test.t#tests', lang => 'perl'
+  </section>
+
+  <section>
+    <h2>Other Ways to Negotiate</h2>
+    %= include_sample 'ex/hello/content_negotiation/test.t#others', lang => 'perl'
+  </section>
+</section>
+
+<section>
+  <h2>Simple MetaCPAN App</h2>
+  %= include_sample 'ex/metacpan/simple/app.pl'
+</section>
