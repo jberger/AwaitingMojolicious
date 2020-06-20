@@ -59,6 +59,35 @@
 </section>
 
 <section>
-  <h2>Simple MetaCPAN App</h2>
-  %= include_sample 'ex/metacpan/simple/app.pl'
+  <section>
+    <h2>Simple MetaCPAN App</h2>
+    %= include_sample 'ex/metacpan/simple/app.pl'
+  </section>
+
+  <section>
+    <h2>Mocking An External Service</h2>
+    %= include_sample 'ex/metacpan/simple/test.t#mock', lang => 'perl'
+  </section>
+
+  <section>
+    <h2>Mocking An External Service</h2>
+    <ul>
+      <li><code>Mojo::UserAgent</code>
+        <ul>
+          <li>server for relative urls</li>
+          <li>accepts a Mojolicious app</li>
+        </ul>
+      </li>
+      <li class="fragment">Attach mock app to the main app's ua</li>
+      <li class="fragment">MetaCPAN url is configurable!</li>
+    </ul>
+    <div class="fragment">
+      %= include_sample 'ex/metacpan/simple/test.t#install', lang => 'perl'
+    </div>
+  </section>
+
+  <section>
+    <h2>Test Simple MetaCPAN App</h2>
+    %= include_sample 'ex/metacpan/simple/test.t', lang => 'perl'
+  </section>
 </section>
