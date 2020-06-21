@@ -59,6 +59,15 @@
 </section>
 
 <section>
+  <h1>Let's Build a Doc Fetching App</h1>
+</section>
+
+<section>
+  <section>
+    <h1>Goal:<h1>
+    <h3>Display Docs Fetched From MetaCPAN</h3>
+  </section>
+
   <section>
     <h2>Simple MetaCPAN App</h2>
     %= include_sample 'ex/metacpan/simple/app.pl'
@@ -89,5 +98,30 @@
   <section>
     <h2>Test Simple MetaCPAN App</h2>
     %= include_sample 'ex/metacpan/simple/test.t', lang => 'perl'
+  </section>
+</section>
+
+<section>
+  <section>
+    <h1>Goal:</h1>
+    <h3>Fix Link URLs</h3>
+  </section>
+
+  <section>
+    <h2>Mojo::DOM in Action</h2>
+    <h3>Transforming HTML</h3>
+  </section>
+
+  %= section_group fade => begin
+    <h2>Transforming HTML</h2>
+    %= include_sample 'ex/metacpan/munge_links/app.pl#munge'
+  % end, begin
+    <h2>Transforming HTML</h2>
+    %= include_sample 'ex/metacpan/munge_links/app.pl#munge', mark => '4,14'
+  % end
+
+  <section>
+    <h2>Testing the Transformation</h2>
+    %= include_sample 'ex/metacpan/munge_links/test.t#test', lang => 'perl'
   </section>
 </section>
