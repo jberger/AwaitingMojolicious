@@ -2,11 +2,9 @@ use Mojo::Base -strict;
 
 use Test::More;
 use Test::Mojo;
+use Mojo::File 'curfile';
 
-use FindBin '$Bin';
-require "$Bin/app.pl";
-
-my $t = Test::Mojo->new;
+my $t = Test::Mojo->new(curfile->sibling('app.pl'));
 
 # sample(tests)
 $t->get_ok('/')
