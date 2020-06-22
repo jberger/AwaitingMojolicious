@@ -19,6 +19,14 @@ helper get_doc_p => async sub ($c, $module) {
   return $tx->result->dom;
 };
 
+helper munge_links => sub ($c, $dom) {
+  $dom->find('a[href^="https://metacpan.org/pod/"]')->each(sub {
+    my $module = Mojo::URL->new($_->{href})->path->parts->[-1];
+    $_->{href} = $c->url_for('doc',  module => $module);
+  });
+  return $dom;
+};
+
 helper get_dist_p => async sub ($c, $module) {
   my $url = $c->api_url;
   push @{$url->path}, 'module', $module;
@@ -34,21 +42,13 @@ helper get_favorites_p => async sub ($c, $dist) {
   return $tx->result->json('/hits/total');
 };
 
-helper munge_links => sub ($c, $dom) {
-  $dom->find('a[href^="https://metacpan.org/pod/"]')->each(sub {
-    my $module = Mojo::URL->new($_->{href})->path->parts->[-1];
-    $_->{href} = $c->url_for('doc',  module => $module);
-  });
-  return $dom;
-};
-
 helper inject_dist => sub ($c, $dom, $dist, $faves) {
   my $html = $c->render_to_string(
     template => 'dist',
     dist => $dist,
     faves => $faves,
   );
-  $dom->at('h1#SYNOPSIS')->prepend($html);
+  $dom->at('h1#NAME + p')->append($html);
   return $dom;
 };
 
