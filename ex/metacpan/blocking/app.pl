@@ -27,13 +27,16 @@ helper munge_links => sub ($c, $dom) {
   return $dom;
 };
 
+# sample(dist) skip-sample
 helper get_dist => sub ($c, $module) {
   my $url = $c->api_url;
   push @{$url->path}, 'module', $module;
   my $tx = $c->ua->get($url);
   return $tx->result->json('/distribution');
 };
+# end-sample skip-sample
 
+# sample(fav) skip-sample
 helper get_favorites => sub ($c, $dist) {
   my $url = $c->api_url;
   push @{$url->path}, 'favorite', '_search';
@@ -41,17 +44,20 @@ helper get_favorites => sub ($c, $dist) {
   my $tx = $c->ua->get($url);
   return $tx->result->json('/hits/total');
 };
+# end-sample skip-sample
 
+# sample(inject) skip-sample
 helper inject_dist => sub ($c, $dom, $dist, $faves) {
   my $html = $c->render_to_string(
     template => 'dist',
-    dist => $dist,
-    faves => $faves,
+    dist => $dist, faves => $faves,
   );
   $dom->at('h1#NAME + p')->append($html);
   return $dom;
 };
+# end-sample skip-sample
 
+# sample(action) skip-sample
 get '/doc/:module' => sub ($c) {
   my $module = $c->stash('module');
   my $doc = $c->get_doc($module);
@@ -61,11 +67,15 @@ get '/doc/:module' => sub ($c) {
   $doc = $c->inject_dist($doc, $dist, $faves);
   $c->render(text => $doc);
 } => 'doc';
+# end-sample skip-sample
 
 app->start;
+# sample(inject) skip-sample
 
 __DATA__
 
 @@ dist.html.ep
 <h1 id="DISTRIBUTION">DISTRIBUTION</h1>
-<p><%= $dist %> (<%= $faves %>++ on <a href="https://metacpan.org">MetaCPAN</a>)</p>
+<p><%= $dist %> (<%= $faves %>++ on MetaCPAN)</p>
+
+%# end-sample skip-sample

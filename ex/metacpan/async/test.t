@@ -11,7 +11,7 @@ my $mock = Mojolicious->new;
 $mock->routes->get('/pod/MyModule' => {text => <<'END'});
   <h1 id="NAME">MyModule</h1>
   <p>My Test Module</p>
-  <a href="https://metacpan.org/pod/OtherMod">OtherMod</a>
+  <a href="https://metacpan.org/pod/OtherMod">OtherMod</a>               <!-- / highlight fix -->
 END
 
 $mock->routes->get('/module/MyModule' => {json => {

@@ -127,3 +127,47 @@
     %= include_sample 'ex/metacpan/munge_links/test.t#test', lang => 'perl'
   </section>
 </section>
+
+<section>
+  <section>
+    <h1>Goal:</h1>
+    <h3>Add Distribution and ++ to Doc</h3>
+  </section>
+
+  <section>
+    <h3>Its as Simple as ...</h3>
+    %= include_sample 'ex/metacpan/blocking/app.pl#action', mark => '5-7'
+  </section>
+
+  <section>
+    <h2>Get Dist For Module</h2>
+    %= include_sample 'ex/metacpan/blocking/app.pl#dist'
+    <div class="fragment">
+      %= include_sample 'ex/metacpan/blocking/test.t#dist', lang => 'perl'
+    </div>
+  </section>
+
+  <section>
+    <h2>Get Favorite Count For Dist</h2>
+    %= include_sample 'ex/metacpan/blocking/app.pl#fav'
+    <div class="fragment">
+      %= include_sample 'ex/metacpan/blocking/test.t#fav', lang => 'perl'
+    </div>
+  </section>
+
+  <section>
+    <h2>Inject New HTML</h2>
+    %= include_sample 'ex/metacpan/blocking/app.pl#inject'
+  </section>
+
+  <section>
+    <h2>Full Application</h2>
+    %= include_sample 'ex/metacpan/blocking/app.pl'
+  </section>
+
+  <section>
+    <h2>Full Test</h2>
+    %= include_sample 'ex/metacpan/blocking/test.t', lang => 'perl'
+  </section>
+</section>
+
