@@ -171,3 +171,19 @@
   </section>
 </section>
 
+<section>
+  <section>
+    <h1>Goal:</h1>
+    <h3>Make it Async</h3>
+  </section>
+
+  <section>
+    <h2>Full Application</h2>
+    %= include_sample 'ex/metacpan/async/app.pl'
+  </section>
+
+  <section>
+    <h2>And the Tests ...</h2>
+    <h3 class="fragment">... are unchanged</h3> 
+  </section>
+</section>

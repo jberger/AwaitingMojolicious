@@ -68,4 +68,4 @@ __DATA__
 
 @@ dist.html.ep
 <h1 id="DISTRIBUTION">DISTRIBUTION</h1>
-<p><%= $dist %> (<%= $faves %>++ on <a href="https://metacpan.org">MetaCPAN</a>)</p>
+<p><%= $dist %> (<%= $faves %>++ on MetaCPAN)</p>
