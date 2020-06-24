@@ -13,10 +13,10 @@ $t->get_ok('/')
   ->json_is({hello => '🌐!'})
   ->json_is('/hello' => '🌐!');
 
-$t->get_ok('/Doug')
+$t->get_ok('/R2-D2')
   ->status_is(200)
   ->content_type_like(qr'application/json')
-  ->json_is('/hello' => 'Doug!');
+  ->json_is('/hello' => 'R2-D2!');
 # end-sample
 
 done_testing;

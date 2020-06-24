@@ -12,10 +12,10 @@ $t->get_ok('/')
   ->content_type_like(qr'text/plain')
   ->content_is('Hello 🌐!');
 
-$t->get_ok('/Olaf')
+$t->get_ok('/Greedo')
   ->status_is(200)
   ->content_type_like(qr'text/plain')
-  ->content_is('Hello Olaf!');
+  ->content_is('Hello Greedo!');
 # end-sample
 
 done_testing;
