@@ -1,4 +1,6 @@
+# sample(import) skip-sample
 use Mojolicious::Lite -signatures, -async_await;
+# end-sample skip-sample
 
 use Mojo::URL;
 
@@ -12,12 +14,14 @@ helper api_url => sub ($c) {
   return Mojo::URL->new($c->app->config->{api});
 };
 
+# sample(doc) skip-sample
 helper get_doc_p => async sub ($c, $module) {
   my $url = $c->api_url;
   push @{$url->path}, 'pod', $module;
   my $tx = await $c->ua->get_p($url);
   return $tx->result->dom;
 };
+# end-sample skip-sample
 
 helper munge_links => sub ($c, $dom) {
   $dom->find('a[href^="https://metacpan.org/pod/"]')->each(sub {
@@ -27,13 +31,16 @@ helper munge_links => sub ($c, $dom) {
   return $dom;
 };
 
+# sample(dist) skip-sample
 helper get_dist_p => async sub ($c, $module) {
   my $url = $c->api_url;
   push @{$url->path}, 'module', $module;
   my $tx = await $c->ua->get_p($url);
   return $tx->result->json('/distribution');
 };
+# end-sample skip-sample
 
+# sample(favorites) skip-sample
 helper get_favorites_p => async sub ($c, $dist) {
   my $url = $c->api_url;
   push @{$url->path}, 'favorite', '_search';
@@ -41,6 +48,7 @@ helper get_favorites_p => async sub ($c, $dist) {
   my $tx = await $c->ua->get_p($url);
   return $tx->result->json('/hits/total');
 };
+# end-sample skip-sample
 
 helper inject_dist => sub ($c, $dom, $dist, $faves) {
   my $html = $c->render_to_string(
@@ -52,6 +60,7 @@ helper inject_dist => sub ($c, $dom, $dist, $faves) {
   return $dom;
 };
 
+# sample(route) skip-sample
 get '/doc/:module' => async sub ($c) {
   my $module = $c->stash('module');
   my $doc = await $c->get_doc_p($module);
@@ -61,6 +70,7 @@ get '/doc/:module' => async sub ($c) {
   $doc = $c->inject_dist($doc, $dist, $faves);
   $c->render(text => $doc);
 } => 'doc';
+# end-sample skip-sample
 
 app->start;
 
