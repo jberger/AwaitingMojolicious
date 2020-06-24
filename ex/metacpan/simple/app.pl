@@ -4,13 +4,13 @@ use Mojo::URL;
 
 plugin Config => {
   default => {
-    api => 'https://fastapi.metacpan.org/v1',
+    api => 'https://fastapi.metacpan.org/v1/',
   },
 };
 
 helper get_doc => sub ($c, $module) {
   my $url = $c->app->config->{api};
-  $url .= "/pod/$module";
+  $url .= "pod/$module";
   my $tx = $c->ua->get($url);
   return $tx->result->text;
 };

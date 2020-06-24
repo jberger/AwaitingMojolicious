@@ -6,7 +6,7 @@ use Mojo::URL;
 
 plugin Config => {
   default => {
-    api => 'https://fastapi.metacpan.org/v1',
+    api => 'https://fastapi.metacpan.org/v1/',
   },
 };
 
