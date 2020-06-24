@@ -340,6 +340,7 @@
   %= section_group fade => begin
     <h2>Async/Await</h2>
     %= include_sample 'ex/metacpan/async/app.pl#import'
+    <p>Requires Future::AsyncAwait 0.36 or greater</p>
   % end, begin
     <h2>Async/Await</h2>
     %= include_sample 'ex/metacpan/async/app.pl#doc'
