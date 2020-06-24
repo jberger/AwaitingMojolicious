@@ -8,20 +8,21 @@
 %= markdown_section begin
 ## Broad Outline
 
-* iteratively build up a non-trivial app
+* Overview of the Mojo Toolkit
+* Iteratively build up a non-trivial app
   - with tests
-* introduce Mojolicious concepts
-* convert it to non-blocking
+* Introduce Mojolicious concepts
+* Convert it to non-blocking
 % end
 
 %= markdown_section begin
 ## About This Talk
 
-* lots of code
-* follow along <https://jberger.github.io/AwaitingMojolicious>
-* all code included in the repo <https://github.com/jberger/AwaitingMojolicious>
-* all the code is complete and functions
-* all the tests pass (demo)
+* Lots of code
+* Follow along <https://jberger.github.io/AwaitingMojolicious>
+* All code included in the repo <https://github.com/jberger/AwaitingMojolicious>
+* All the code is complete and functions
+* All the tests pass (demo)
 % end
 
 <section>
@@ -30,28 +31,43 @@
 % end
 
 %= markdown_section begin
-## Web Format Classes
+## Mojo::DOM
 
-* Mojo::DOM
-  - Mojo::DOM::CSS
-* Mojo::JSON
-  - Mojo::JSON::Pointer
-* Mojo::URL
+* Find content
+* Manipulate content
+* CSS3 (and some 4) Selectors
+% end
+
+%= markdown_section begin
+## Mojo::JSON
+
+* Pure Perl
+* Fast
+* JSON Pointers
+  - grab deep data
+% end
+
+%= markdown_section begin
+## Mojo::URL
+
+* Inspect
+* Manipulate
+* See also:
   - Mojo::Path
   - Mojo::Parameters
 % end
 
 %= markdown_section begin
-Mojo::UserAgent
+## Mojo::UserAgent
 
 * Blocking
 * Non-blocking
 * Websocket
-* Integrated with the formats
+* Integrated with other Mojo::
 % end
 
 %= markdown_section begin
-Test::Mojo
+## Test::Mojo
 
 * Starts a real server
 * Contains a UserAgent
@@ -71,10 +87,11 @@ Test::Mojo
 
   <section>
     <h2>Oh and of course ...</h2>
-    <h3 class="fragment">The Web Framework!</h3>
   </section>
 
 %= markdown_section begin
+## The Web Framework!
+
 * Mojolicious
 * Mojolicious::Lite (DSL)
 % end
