@@ -8,12 +8,18 @@ plugin Config => {
   },
 };
 
+# sample(url)
+helper api_url => sub ($c) {
+  return Mojo::URL->new($c->app->config->{api});
+};
+
 helper get_doc => sub ($c, $module) {
-  my $url = $c->app->config->{api};
-  $url .= "/pod/$module";
+  my $url = $c->api_url;
+  push @{$url->path}, 'pod', $module;
   my $tx = $c->ua->get($url);
   return $tx->result->text;
 };
+# end-sample
 
 get '/doc/:module' => sub ($c) {
   my $module = $c->stash('module');

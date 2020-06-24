@@ -184,8 +184,6 @@
     <h3>Display Docs Fetched From MetaCPAN</h3>
   </section>
 
-%#TODO UA
-
   <section>
     %#XXX split this into a few slides
     <h2>Simple MetaCPAN App</h2>
@@ -218,6 +216,19 @@
     <h2>Test Simple MetaCPAN App</h2>
     %= include_sample 'ex/metacpan/simple/test.t', lang => 'perl'
   </section>
+</section>
+
+<section>
+  %= section_group fade => begin
+    <h2>Smart URL Manipulation</h2>
+    %= include_sample 'ex/metacpan/url/app.pl#url'
+  % end, begin
+    <h2>Smart URL Manipulation</h2>
+    %= include_sample 'ex/metacpan/url/app.pl#url', mark => '1,2,3,6'
+  % end, begin
+    <h2>Smart URL Manipulation</h2>
+    %= include_sample 'ex/metacpan/url/app.pl#url', mark => '7'
+  % end
 </section>
 
 <section>
