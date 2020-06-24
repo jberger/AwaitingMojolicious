@@ -14,5 +14,5 @@ __DATA__
 
 @@ user.html.ep
 <div id="greeting">
-  Hello <div id="user"><%= $user %></div>!
+  Hello <div class="user"><%= $user %></div>!
 </div>
