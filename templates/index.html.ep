@@ -85,6 +85,24 @@
 
 <section>
   <section>
+    <h2>JSON</h2>
+    %= include_sample 'ex/hello/json/app.pl'
+  </section>
+
+  %= section_group fade => begin
+    <h2>JSON Tests</h2>
+    %= include_sample 'ex/hello/json/test.t#tests', lang => 'perl'
+  % end, begin
+    <h2>JSON Tests</h2>
+    %= include_sample 'ex/hello/json/test.t#tests', lang => 'perl', mark => '4'
+  % end, begin
+    <h2>JSON Tests</h2>
+    %= include_sample 'ex/hello/json/test.t#tests', lang => 'perl', mark => '5'
+  % end
+</section>
+
+<section>
+  <section>
     <h2>Templates</h2>
     %= include_sample 'ex/hello/template/app.pl'
   </section>
@@ -106,11 +124,19 @@
   % end, begin
     <h2>Content Negotiation</h2>
     %= include_sample 'ex/hello/content_negotiation/app.pl', mark => '6'
+  % end, begin
+    <h2>Content Negotiation</h2>
+    %= include_sample 'ex/hello/content_negotiation/app.pl', mark => '7'
   % end
 
   <section>
     <h2>Testing Content Negotiation</h2>
-    %= include_sample 'ex/hello/content_negotiation/test.t#tests', lang => 'perl'
+    %= include_sample 'ex/hello/content_negotiation/test.t#root', lang => 'perl'
+  </section>
+
+  <section>
+    <h2>Testing Content Negotiation</h2>
+    %= include_sample 'ex/hello/content_negotiation/test.t#user', lang => 'perl'
   </section>
 
   <section>

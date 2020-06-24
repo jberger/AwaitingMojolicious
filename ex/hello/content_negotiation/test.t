@@ -6,7 +6,7 @@ use Mojo::File 'curfile';
 
 my $t = Test::Mojo->new(curfile->sibling('app.pl'));
 
-# sample(tests)
+# sample(root)
 $t->get_ok('/')
   ->status_is(200)
   ->content_type_like(qr'text/html')
@@ -17,6 +17,13 @@ $t->get_ok('/.txt')
   ->content_type_like(qr'text/plain')
   ->content_is('Hello 🌐!');
 
+$t->get_ok('/.json')
+  ->status_is(200)
+  ->content_type_like(qr'application/json')
+  ->json_is({hello => '🌐!'});
+# end-sample
+
+# sample(user)
 $t->get_ok('/Graham')
   ->status_is(200)
   ->content_type_like(qr'text/html')
@@ -26,6 +33,11 @@ $t->get_ok('/Leo.txt')
   ->status_is(200)
   ->content_type_like(qr'text/plain')
   ->content_is('Hello Leo!');
+
+$t->get_ok('/Brad.json')
+  ->status_is(200)
+  ->content_type_like(qr'application/json')
+  ->json_is('/hello' => 'Brad!');
 # end-sample
 
 # sample(others)

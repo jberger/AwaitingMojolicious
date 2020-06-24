@@ -4,6 +4,7 @@ get '/:user' => { user => '🌐' } => sub ($c) {
   my $user = $c->stash->{user};
   $c->respond_to(
     txt  => {text => "Hello $user!"},
+    json => {json => {hello => "$user!"}},
     html => {template => 'user'},
   );
 };
