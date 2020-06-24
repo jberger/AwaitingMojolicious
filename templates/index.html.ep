@@ -179,9 +179,18 @@
     <h2>Hello $user! Test</h2>
     %= include_sample 'ex/hello/user/test.t#tests', lang => 'perl'
   </section>
+
+  <section>
+    <img src="images/han_shot_first.gif"></img>
+    <p>#HanShotFirst</p>
+  </section>
 </section>
 
 <section>
+  <section>
+    <h2>Other Formats?</h2>
+  </section>
+
   <section>
     <img src="images/drone.jpg" style="width: 50%"></img>
   </section>
@@ -291,6 +300,7 @@
   </section>
 
   <section>
+    <h2>Mocking An External Service</h2>
     <img src="images/storm_trooper.jpg" style="width: 60%"></img>
     <p>Aren't you a little short for a storm trooper?</p>
   </section>
@@ -298,6 +308,11 @@
   <section>
     <h2>Mocking An External Service</h2>
     %= include_sample 'ex/metacpan/simple/test.t#mock', lang => 'perl'
+  </section>
+
+  <section>
+    <h2>How do we use this mock?</h2>
+    <img src="images/mind_trick.gif"></img>
   </section>
 
   <section>
