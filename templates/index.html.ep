@@ -25,10 +25,15 @@
 * All the tests pass (demo)
 % end
 
+%#TODO Mojolicious is
 <section>
 %= markdown_section begin
 ## The Mojo Toolkit
 % end
+
+<section>
+  <img src="images/droid_shopping.jpg"></img>
+</section>
 
 %= markdown_section begin
 ## Mojo::DOM
@@ -99,6 +104,10 @@
 
 <section>
   <section>
+    <img src="images/sunset.jpg"></img>
+  </section>
+
+  <section>
     <h2>Hello World!</h2>
     %= include_sample 'ex/hello/world/app.pl'
   </section>
@@ -145,6 +154,10 @@
 </section>
 
 <section>
+  <section>
+    <img src="images/meeting.jpg" style="width: 50%"></img>
+  </section>
+
   %= section_group fade => begin
     <h2>Hello $user!</h2>
     %= include_sample 'ex/hello/user/app.pl'
@@ -169,6 +182,10 @@
 </section>
 
 <section>
+  <section>
+    <img src="images/drone.jpg" style="width: 50%"></img>
+  </section>
+
   %= section_group fade => begin
     <h2>JSON</h2>
     %= include_sample 'ex/hello/json/app.pl'
@@ -193,6 +210,10 @@
 </section>
 
 <section>
+  <section>
+    <img src="images/dagobah.jpg" style="width: 60%"></img>
+  </section>
+
   %= section_group fade => begin
     <h2>Templates</h2>
     %= include_sample 'ex/hello/template/app.pl'
@@ -216,6 +237,11 @@
 <section>
   <section>
     <h2>Because we've come this far ...</h2>
+  </section>
+
+  <section>
+    <img src="images/attack.jpg" style="width: 60%"></img>
+    <p>Luke, you've turned off your targeting computer!</p>
   </section>
 
   %= section_group fade => begin
@@ -245,8 +271,6 @@
   </section>
 </section>
 
-%#TODO Mojo::URL?
-
 <section>
   <h1>Let's Build a Doc Fetching App</h1>
 </section>
@@ -258,9 +282,17 @@
   </section>
 
   <section>
-    %#XXX split this into a few slides
+    <img src="images/vader_cave.jpg" style="width: 60%"></img>
+  </section>
+
+  <section>
     <h2>Simple MetaCPAN App</h2>
     %= include_sample 'ex/metacpan/simple/app.pl'
+  </section>
+
+  <section>
+    <img src="images/storm_trooper.jpg" style="width: 60%"></img>
+    <p>Aren't you a little short for a storm trooper?</p>
   </section>
 
   <section>
@@ -292,6 +324,10 @@
 </section>
 
 <section>
+  <section>
+    <img src="images/hologram.png" style="width: 70%"></img>
+  </section>
+
   %= section_group fade => begin
     <h2>Smart URL Manipulation</h2>
     %= include_sample 'ex/metacpan/url/app.pl#url'
@@ -313,6 +349,11 @@
   <section>
     <h2>Mojo::DOM in Action</h2>
     <h3>Transforming HTML</h3>
+  </section>
+
+  <section>
+    <img src="images/elegant_weapon.jpg" style="width: 70%"></img>
+    <p>An elegant weapon... for a more civilized age</p>
   </section>
 
   %= section_group fade => begin
@@ -362,6 +403,11 @@
   </section>
 
   <section>
+    <h2>We Need More Information from MetaCPAN</h2>
+    <img src="images/interrogation.jpg" style="width: 70%"></img>
+  </section>
+
+  <section>
     <h3>Its as Simple as ...</h3>
     %= include_sample 'ex/metacpan/blocking/app.pl#action', mark => '5-7'
   </section>
@@ -405,10 +451,18 @@
 </section>
 
 <section>
+  <img src="images/surprise.gif" style="width: 70%"></img>
+</section>
+
+<section>
   <section>
     <h1>Goal:</h1>
     <h3>Make it Async</h3>
   </section>
+</section>
+
+<section>
+  <img src="images/hate.gif" style="width: 70%"></img>
 </section>
 
 <section>
@@ -520,9 +574,13 @@ my $promise = $async->($args);
     <h2>And the Tests ...</h2>
     <h3 class="fragment">... are unchanged</h3>
   </section>
+
 </section>
 
-<!--
+<section>
+  <img src="images/vader_cute.png"></img>
+  <p class="fragment">Questions?</p>
+</section>
 
 <section>
   <section>
@@ -562,4 +620,3 @@ my $promise = $async->($args);
   </section>
 </section>
 
--->
