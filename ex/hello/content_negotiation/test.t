@@ -10,17 +10,17 @@ my $t = Test::Mojo->new(curfile->sibling('app.pl'));
 $t->get_ok('/')
   ->status_is(200)
   ->content_type_like(qr'text/html')
-  ->text_is('#greeting #user' => 'World');
+  ->text_is('#greeting #user' => '🌐!');
 
 $t->get_ok('/.txt')
   ->status_is(200)
   ->content_type_like(qr'text/plain')
-  ->content_is('Hello World!');
+  ->content_is('Hello 🌐!');
 
 $t->get_ok('/Graham')
   ->status_is(200)
   ->content_type_like(qr'text/html')
-  ->text_is('#greeting #user' => 'Graham');
+  ->text_is('#greeting #user' => 'Graham!');
 
 $t->get_ok('/Leo.txt')
   ->status_is(200)

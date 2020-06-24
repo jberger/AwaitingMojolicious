@@ -3,15 +3,71 @@
   <p>Joel Berger</p>
 </section>
 
+%= markdown_section begin
+## Broad Outline
+
+* iteratively build up a non-trivial app
+  - with tests
+* introduce Mojolicious concepts
+* convert it to non-blocking
+% end
+
+%= markdown_section begin
+## About This Talk
+
+* lots of code
+* follow along
+  - <https://jberger.github.io/AwaitingMojolicious>
+* included in the repo
+  - <https://github.com/jberger/AwaitingMojolicious>
+* all the code runs
+* all the tests pass (demo)
+% end
+
 <section>
   <section>
     <h2>Hello World!</h2>
     %= include_sample 'ex/hello/world/app.pl'
   </section>
 
-  <section>
+  %= section_group fade => begin
     <h2>Hello World! Test</h2>
     %= include_sample 'ex/hello/world/test.t', lang => 'perl'
+  % end, begin
+    <h2>Hello World! Test</h2>
+    %= include_sample 'ex/hello/world/test.t', lang => 'perl', mark => '3,4'
+  % end, begin
+    <h2>Hello World! Test</h2>
+    %= include_sample 'ex/hello/world/test.t', lang => 'perl', mark => '5,7'
+  % end, begin
+    <h2>Hello World! Test</h2>
+    %= include_sample 'ex/hello/world/test.t', lang => 'perl', mark => '9-11'
+  % end
+</section>
+
+<section>
+  <section>
+    <h2>What actually happened?</h2>
+    <ul>
+      <li class="fragment">text encoded with utf8</li>
+      <li class="fragment" style="color: red">default content-type is text/html</li>
+    </ul>
+  </section>
+
+  %= section_group fade => begin
+    <h2>Hello 🌐!</h2>
+    %= include_sample 'ex/hello/format/app.pl'
+  % end, begin
+    <h2>Hello 🌐!</h2>
+    %= include_sample 'ex/hello/format/app.pl', mark => '4'
+  % end, begin
+    <h2>Hello 🌐!</h2>
+    %= include_sample 'ex/hello/format/app.pl', mark => '5'
+  % end
+
+  <section>
+    <h2>Hello 🌐! Test</h2>
+    %= include_sample 'ex/hello/format/test.t', lang => 'perl', mark => '11,12'
   </section>
 </section>
 
@@ -70,7 +126,10 @@
     <h3>Display Docs Fetched From MetaCPAN</h3>
   </section>
 
+%#TODO UA
+
   <section>
+    %#XXX split this into a few slides
     <h2>Simple MetaCPAN App</h2>
     %= include_sample 'ex/metacpan/simple/app.pl'
   </section>
@@ -184,6 +243,6 @@
 
   <section>
     <h2>And the Tests ...</h2>
-    <h3 class="fragment">... are unchanged</h3> 
+    <h3 class="fragment">... are unchanged</h3>
   </section>
 </section>
