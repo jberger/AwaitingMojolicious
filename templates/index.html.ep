@@ -72,10 +72,22 @@
 </section>
 
 <section>
-  <section>
+  %= section_group fade => begin
     <h2>Hello $user!</h2>
     %= include_sample 'ex/hello/user/app.pl'
-  </section>
+  % end, begin
+    <h2>Hello $user!</h2>
+    %= include_sample 'ex/hello/user/app.pl', mark => '1'
+  % end, begin
+    <h2>Hello $user!</h2>
+    %= include_sample 'ex/hello/user/app.pl', mark => '3'
+  % end, begin
+    <h2>Hello $user!</h2>
+    %= include_sample 'ex/hello/user/app.pl', mark => '4'
+  % end, begin
+    <h2>Hello $user!</h2>
+    %= include_sample 'ex/hello/user/app.pl', mark => '5'
+  % end
 
   <section>
     <h2>Hello $user! Test</h2>
@@ -84,14 +96,20 @@
 </section>
 
 <section>
-  <section>
+  %= section_group fade => begin
     <h2>JSON</h2>
     %= include_sample 'ex/hello/json/app.pl'
-  </section>
+  % end, begin
+    <h2>JSON</h2>
+    %= include_sample 'ex/hello/json/app.pl', mark => '5'
+  % end
 
   %= section_group fade => begin
     <h2>JSON Tests</h2>
     %= include_sample 'ex/hello/json/test.t#tests', lang => 'perl'
+  % end, begin
+    <h2>JSON Tests</h2>
+    %= include_sample 'ex/hello/json/test.t#tests', lang => 'perl', mark => '3'
   % end, begin
     <h2>JSON Tests</h2>
     %= include_sample 'ex/hello/json/test.t#tests', lang => 'perl', mark => '4'
@@ -102,15 +120,24 @@
 </section>
 
 <section>
-  <section>
+  %= section_group fade => begin
     <h2>Templates</h2>
     %= include_sample 'ex/hello/template/app.pl'
-  </section>
+  % end, begin
+    <h2>Templates</h2>
+    %= include_sample 'ex/hello/template/app.pl', mark => '4'
+  % end, begin
+    <h2>Templates</h2>
+    %= include_sample 'ex/hello/template/app.pl', mark => '13'
+  % end
 
-  <section>
+  %= section_group fade => begin
     <h2>CSS Selectors in Tests</h2>
     %= include_sample 'ex/hello/template/test.t#tests', lang => 'perl'
-  </section>
+  % end, begin
+    <h2>CSS Selectors in Tests</h2>
+    %= include_sample 'ex/hello/template/test.t#tests', lang => 'perl', mark => '4,9'
+  % end
 </section>
 
 <section>
