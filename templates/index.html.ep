@@ -304,3 +304,45 @@
     <h3 class="fragment">... are unchanged</h3>
   </section>
 </section>
+
+<!--
+
+<section>
+  <section>
+    <h2>Command System</h2>
+  </section>
+
+  <section>
+    <h2>Start App</h2>
+    <ul>
+      <li><code>./myapp.pl daemon</code></li>
+      <li><code>./myapp.pl prefork</code></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Inspect App</h2>
+    <ul>
+      <li><code>./myapp.pl routes</code></li>
+      <li><code>./myapp.pl eval</code></li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>Add your own</h3>
+    <ul>
+      <li><code>./myapp.pl migrate</code></li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>Or get one from CPAN</h3>
+    <ul>
+      <li><code>./myapp.pl minion worker</code></li>
+      <li><code>./myapp.pl nopaste app.pl</code></li>
+      <li><code>./myapp.pl export</code></li>
+    </ul>
+  </section>
+</section>
+
+-->
