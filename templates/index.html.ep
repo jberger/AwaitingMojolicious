@@ -75,12 +75,12 @@
 
 <section>
   <section>
-    <h2>Hello User!</h2>
+    <h2>Hello $user!</h2>
     %= include_sample 'ex/hello/user/app.pl'
   </section>
 
   <section>
-    <h2>Hello User! Test</h2>
+    <h2>Hello $user! Test</h2>
     %= include_sample 'ex/hello/user/test.t#tests', lang => 'perl'
   </section>
 </section>

@@ -1,6 +1,6 @@
 use Mojolicious::Lite -signatures;
 
-get '/:user' => { user => 'World' } => sub ($c) { 
+get '/:user' => { user => '🌐' } => sub ($c) {
   $c->render(template => 'user');
 };
 
