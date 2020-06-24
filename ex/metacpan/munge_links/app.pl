@@ -12,6 +12,7 @@ helper api_url => sub ($c) {
   return Mojo::URL->new($c->app->config->{api});
 };
 
+# sample(doc) skip-sample
 helper get_doc => sub ($c, $module) {
   my $url = $c->api_url;
   push @{$url->path}, 'pod', $module;
@@ -19,6 +20,7 @@ helper get_doc => sub ($c, $module) {
   return $tx->result->dom;
 };
 
+# end-sample skip-sample
 # sample(munge) skip-sample
 helper munge_links => sub ($c, $dom) {
   $dom->find('a[href^="https://metacpan.org/pod/"]')->each(sub {
@@ -27,7 +29,9 @@ helper munge_links => sub ($c, $dom) {
   });
   return $dom;
 };
+# end-sample skip-sample
 
+# sample(doc) skip-sample
 get '/doc/:module' => sub ($c) {
   my $module = $c->stash('module');
   my $doc = $c->get_doc($module);

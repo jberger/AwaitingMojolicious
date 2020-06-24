@@ -244,16 +244,42 @@
 
   %= section_group fade => begin
     <h2>Transforming HTML</h2>
+    %= include_sample 'ex/metacpan/munge_links/app.pl#doc', mark => '5'
+  % end, begin
+    <h2>Transforming HTML</h2>
+    %= include_sample 'ex/metacpan/munge_links/app.pl#doc', mark => '11'
+  % end, begin
+    <h2>Transforming HTML</h2>
+    %= include_sample 'ex/metacpan/munge_links/app.pl#doc', mark => '13'
+  % end
+
+  %= section_group fade => begin
+    <h2>Transforming HTML</h2>
     %= include_sample 'ex/metacpan/munge_links/app.pl#munge'
   % end, begin
     <h2>Transforming HTML</h2>
-    %= include_sample 'ex/metacpan/munge_links/app.pl#munge', mark => '4,14'
+    %= include_sample 'ex/metacpan/munge_links/app.pl#munge', mark => '2'
+  % end, begin
+    <h2>Transforming HTML</h2>
+    %= include_sample 'ex/metacpan/munge_links/app.pl#munge', mark => '3'
+  % end, begin
+    <h2>Transforming HTML</h2>
+    %= include_sample 'ex/metacpan/munge_links/app.pl#munge', mark => '4'
   % end
 
-  <section>
+  %= section_group fade => begin
     <h2>Testing the Transformation</h2>
     %= include_sample 'ex/metacpan/munge_links/test.t#test', lang => 'perl'
-  </section>
+  % end, begin
+    <h2>Testing the Transformation</h2>
+    %= include_sample 'ex/metacpan/munge_links/test.t#test', lang => 'perl', mark => '4'
+  % end, begin
+    <h2>Testing the Transformation</h2>
+    %= include_sample 'ex/metacpan/munge_links/test.t#test', lang => 'perl', mark => '11'
+  % end, begin
+    <h2>Testing the Transformation</h2>
+    %= include_sample 'ex/metacpan/munge_links/test.t#test', lang => 'perl', mark => '12'
+  % end
 </section>
 
 <section>
@@ -283,10 +309,16 @@
     </div>
   </section>
 
-  <section>
+  %= section_group fade => begin
     <h2>Inject New HTML</h2>
     %= include_sample 'ex/metacpan/blocking/app.pl#inject'
-  </section>
+  % end, begin
+    <h2>Inject New HTML</h2>
+    %= include_sample 'ex/metacpan/blocking/app.pl#inject', mark => '2-5'
+  % end, begin
+    <h2>Inject New HTML</h2>
+    %= include_sample 'ex/metacpan/blocking/app.pl#inject', mark => '6'
+  % end
 
   <section>
     <h2>Full Application</h2>
