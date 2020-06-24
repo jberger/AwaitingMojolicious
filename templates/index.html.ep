@@ -392,11 +392,82 @@ Test::Mojo
     <h1>Goal:</h1>
     <h3>Make it Async</h3>
   </section>
+</section>
 
+<section>
+%= markdown_section begin
+## Three basic mechanisms
+% end
+
+%= markdown_section begin
+## Callbacks
+
+* Old school
+* Not worth it anymore
+% end
+
+%= markdown_section begin
+## Promises
+
+* Mojo::Promise
+* Object that represents possible future actions
+* Chainable
+* Exception Channel
+% end
+
+%= markdown_section begin
+## Async/Await
+
+* Uses promises
+* Much more powerful
+* Requires Future::AsyncAwait 0.36+
+% end
+
+%= markdown_section begin
+## Await Keyword
+
+* Takes a Promise
+* Suspends the interpreter until
+  - the promise resolves, returns it
+  - the promise rejects (errors), throws it
+
+```perl
+  my $result = await returns_promise();
+```
+% end
+
+%= markdown_section begin
+## Async Functions
+
+* always return promises
+* can call `await`
+
+```perl
+my $async = async sub ($args) {
+  my $result = await returns_promise();
+  ...
+};
+my $promise = $async->($args);
+```
+% end
+
+%= markdown_section begin
+## Async is ... easy
+
+* await anything that
+  - returns a promise
+  - is marked async
+* mark any function that calls await as async
+* that's it, really*!
+
+<small>* In a Mojo webapp at least</small>
+% end
+</section>
+
+</section>
   %= section_group fade => begin
     <h2>Async/Await</h2>
     %= include_sample 'ex/metacpan/async/app.pl#import'
-    <p>Requires Future::AsyncAwait 0.36 or greater</p>
   % end, begin
     <h2>Async/Await</h2>
     %= include_sample 'ex/metacpan/async/app.pl#doc'
