@@ -5,7 +5,10 @@ use Test::Mojo;
 use Mojo::File 'curfile';
 use Mojolicious;
 
-my $t = Test::Mojo->new(curfile->sibling('app.pl'));
+my $t = Test::Mojo->new(
+  curfile->sibling('app.pl'),
+  {api => '/'},
+);
 
 my $mock = Mojolicious->new;
 $mock->routes->get('/pod/MyModule' => {text => <<'END'});
@@ -29,7 +32,6 @@ $mock->routes->get('/favorite/_search' => sub ($c) {
 # end-sample skip-sample
 
 $t->app->ua->server->app($mock);
-$t->app->config->{api} = '/';
 
 $t->get_ok('/doc/MyModule')
   ->status_is(200)

@@ -5,8 +5,13 @@ use Test::Mojo;
 use Mojo::File 'curfile';
 use Mojolicious;
 
-my $t = Test::Mojo->new(curfile->sibling('app.pl'));
+# sample(install) skip-sample
+my $t = Test::Mojo->new(
+  curfile->sibling('app.pl'),
+  {api => '/'}, # config override!
+);
 
+# end-sample skip-sample
 # sample(mock) skip-sample
 my $mock = Mojolicious->new;
 $mock->routes->get('/pod/MyModule' => {text => <<'END'});
@@ -17,7 +22,6 @@ END
 
 # sample(install) skip-sample
 $t->app->ua->server->app($mock);
-$t->app->config->{api} = '/';
 # end-sample skip-sample
 
 $t->get_ok('/doc/MyModule')
