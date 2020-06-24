@@ -71,8 +71,6 @@
   </section>
 </section>
 
-%#TODO Mojo::URL?
-
 <section>
   <section>
     <h2>Hello $user!</h2>
@@ -84,8 +82,6 @@
     %= include_sample 'ex/hello/user/test.t#tests', lang => 'perl'
   </section>
 </section>
-
-%#TODO CSS Selectors?
 
 <section>
   <section>
@@ -101,9 +97,16 @@
 
 <section>
   <section>
+    <h2>Because we've come this far ...</h2>
+  </section>
+
+  %= section_group fade => begin
     <h2>Content Negotiation</h2>
     %= include_sample 'ex/hello/content_negotiation/app.pl'
-  </section>
+  % end, begin
+    <h2>Content Negotiation</h2>
+    %= include_sample 'ex/hello/content_negotiation/app.pl', mark => '6'
+  % end
 
   <section>
     <h2>Testing Content Negotiation</h2>
@@ -115,6 +118,8 @@
     %= include_sample 'ex/hello/content_negotiation/test.t#others', lang => 'perl'
   </section>
 </section>
+
+%#TODO Mojo::URL?
 
 <section>
   <h1>Let's Build a Doc Fetching App</h1>
