@@ -1,6 +1,8 @@
 <section>
   <h2>Awaiting Mojolicious</h2>
   <p>Joel Berger</p>
+  <p>The Perl Conference in the Cloud</p>
+  <p>June 24, 2020</p>
 </section>
 
 %= markdown_section begin
@@ -16,13 +18,67 @@
 ## About This Talk
 
 * lots of code
-* follow along
-  - <https://jberger.github.io/AwaitingMojolicious>
-* included in the repo
-  - <https://github.com/jberger/AwaitingMojolicious>
-* all the code runs
+* follow along <https://jberger.github.io/AwaitingMojolicious>
+* all code included in the repo <https://github.com/jberger/AwaitingMojolicious>
+* all the code is complete and functions
 * all the tests pass (demo)
 % end
+
+<section>
+%= markdown_section begin
+## The Mojo Toolkit
+% end
+
+%= markdown_section begin
+## Web Format Classes
+
+* Mojo::DOM
+  - Mojo::DOM::CSS
+* Mojo::JSON
+  - Mojo::JSON::Pointer
+* Mojo::URL
+  - Mojo::Path
+  - Mojo::Parameters
+% end
+
+%= markdown_section begin
+Mojo::UserAgent
+
+* Blocking
+* Non-blocking
+* Websocket
+* Integrated with the formats
+% end
+
+%= markdown_section begin
+Test::Mojo
+
+* Starts a real server
+* Contains a UserAgent
+* Lots of test method
+* Format aware
+* Websocket
+% end
+
+%= markdown_section begin
+## Non-blocking
+
+* Mojo::IOLoop
+  - Pluggable Mojo::Reactor classes
+* Mojo::Promise
+* New Async/Await via Future::AsyncAwait!
+% end
+
+  <section>
+    <h2>Oh and of course ...</h2>
+    <h3 class="fragment">The Web Framework!</h3>
+  </section>
+
+%= markdown_section begin
+* Mojolicious
+* Mojolicious::Lite (DSL)
+% end
+</section>
 
 <section>
   <section>
