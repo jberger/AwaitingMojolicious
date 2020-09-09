@@ -1,8 +1,14 @@
+<style>
+  mark {
+    background-color: lightyellow;
+  }
+</style>
+
 <section>
   <h2>Awaiting Mojolicious</h2>
   <p>Joel Berger</p>
-  <p>The Perl Conference in the Cloud</p>
-  <p>June 24, 2020</p>
+  <p>Purdue Perl Mongers</p>
+  <p>September 9, 2020</p>
 </section>
 
 %= markdown_section begin
@@ -67,7 +73,20 @@
 
 </section>
 
-%#TODO Mojolicious is
+<section>
+  <section>
+    <h1>Let's begin</h1>
+  </section>
+
+  <section>
+    <h1>Async is a Hero's Journey</h1>
+  </section>
+
+  <section>
+    <img src="images/longtimeago.jpg">
+  </section>
+</section>
+
 <section>
 %= markdown_section begin
 ## The Mojo Toolkit
@@ -118,7 +137,7 @@
 
 * Starts a real server
 * Contains a UserAgent
-* Lots of test method
+* Lots of test methods
 * Format aware
 * Websocket
 % end
@@ -561,7 +580,7 @@
 
 * Takes a Promise
 * Suspends the interpreter until
-  - the promise resolves, returns it
+  - the promise resolves, returns result
   - the promise rejects (errors), throws it
 
 ```perl
