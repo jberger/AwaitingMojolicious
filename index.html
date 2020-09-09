@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head><base href="/AwaitingMojolicious/">
+    
+    
+    
+		<meta charset="utf-8">
+
+    <title></title>
+
+    <meta content="defies description" name="description">
+    <meta content="somebody pretty cool" name="author">
+
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black-translucent" name="apple-mobile-web-app-status-bar-style">
+
+		<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+
+		<link href="revealjs/css/reveal.css" rel="stylesheet">
+    
+    <link href="revealjs/css/theme/black.css" id="theme" rel="stylesheet">
+
+		<!-- Theme used for syntax highlighting of code -->
+    <link href="revealjs/lib/css/zenburn.css" rel="stylesheet">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'revealjs/css/print/pdf.css' : 'revealjs/css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="revealjs/lib/js/html5shiv.js"></script>
+		<![endif]-->
+
+    <style>
+      div.mojo.include-code:after {
+        content: "";
+        display: block;
+        clear: both;
+      }
+      div.mojo.include-code p.mojo.sample-annotation {
+        margin: 5px 0 10px 0;
+      }
+    </style>
+    
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+        <style>
+  mark {
+    background-color: lightyellow;
+  }
+</style>
+
+<section>
+  <h2>Awaiting Mojolicious</h2>
+  <p>Joel Berger</p>
+  <p>Purdue Perl Mongers</p>
+  <p>September 9, 2020</p>
+</section>
+
+<section data-markdown><script type="text/template">
+## About This Talk
+
+* Lots of code
+* Follow along <https://jberger.github.io/AwaitingMojolicious>
+* All code included in the repo <https://github.com/jberger/AwaitingMojolicious>
+* All the code is complete and functions
+* All the tests pass (demo)
+</script></section>
+<section data-markdown><script type="text/template">
+## Outline
+
+* Introduce the Mojolicious project
+* Overview of the Mojo Toolkit
+* Iteratively build up a non-trivial app
+  - with tests
+* Introduce Mojolicious concepts
+* Convert it to non-blocking
+</script></section>
+<section>
+  <section>
+    <h2>What is Mojolicious?</h2>
+
+    <img src="images/noraptor.png">
+
+    <ul>
+      <li>An amazing real-time web framework</li>
+      <li>A powerful web development toolkit</li>
+      <li>Designed from the ground up</li>
+      <li>... based on years of experience developing Catalyst</li>
+    </ul>
+  </section>
+
+  <section>
+    <ul>
+      <li>Portable</li>
+      <li>No non-core dependencies</li>
+      <li>Batteries included</li>
+      <li>Real-time and non-blocking</li>
+      <li>&quot;... perfect for building highly scalable web services&quot;</li>
+      <li>~8k lines of code in lib</li>
+      <li>~11k tests (~93% coverage)</li>
+      <li>Easy to install (secure, only takes one minute!)</li>
+    </ul>
+    <pre><code class="bash">curl -L https://cpanmin.us | perl - -M https://cpan.metacpan.org -n Mojolicious</code></pre>
+  </section>
+
+  <section>
+    <h2>Getting Help</h2>
+
+    <img height="200px" src="images/failraptor.png" style="float: left;">
+
+    <ul>
+      <li><a href="http://mojolicious.org" target="_blank">http://mojolicious.org</a></li>
+      <li><a href="https://webchat.freenode.net/#mojo" target="_blank">#mojo on Freenode</a></li>
+    </ul>
+  </section>
+
+</section>
+
+<section>
+  <section>
+    <h1>Let&#39;s begin</h1>
+  </section>
+
+  <section>
+    <h1>Async is a Hero&#39;s Journey</h1>
+  </section>
+
+  <section>
+    <img src="images/longtimeago.jpg">
+  </section>
+</section>
+
+<section>
+<section data-markdown><script type="text/template">
+## The Mojo Toolkit
+</script></section>
+<section>
+  <img src="images/droid_shopping.jpg">
+</section>
+
+<section data-markdown><script type="text/template">
+## Mojo::DOM
+
+* Find content
+* Manipulate content
+* CSS3 (and some 4) Selectors
+</script></section>
+<section data-markdown><script type="text/template">
+## Mojo::JSON
+
+* Pure Perl
+* Fast
+* JSON Pointers
+  - grab deep data
+</script></section>
+<section data-markdown><script type="text/template">
+## Mojo::URL
+
+* Inspect
+* Manipulate
+* See also:
+  - Mojo::Path
+  - Mojo::Parameters
+</script></section>
+<section data-markdown><script type="text/template">
+## Mojo::UserAgent
+
+* Blocking
+* Non-blocking
+* Websocket
+* Integrated with other Mojo::
+</script></section>
+<section data-markdown><script type="text/template">
+## Test::Mojo
+
+* Starts a real server
+* Contains a UserAgent
+* Lots of test methods
+* Format aware
+* Websocket
+</script></section>
+<section data-markdown><script type="text/template">
+## Non-blocking
+
+* Mojo::IOLoop
+  - Pluggable Mojo::Reactor classes
+* Mojo::Promise
+* New Async/Await via Future::AsyncAwait!
+</script></section>
+  <section>
+    <h2>Oh and of course ...</h2>
+  </section>
+
+<section data-markdown><script type="text/template">
+## The Web Framework!
+
+* Mojolicious
+* Mojolicious::Lite (DSL)
+</script></section></section>
+
+<section>
+  <section>
+    <img src="images/sunset.jpg">
+  </section>
+
+  <section>
+    <h2>Hello World!</h2>
+        <div class="mojo include-code">
+      <pre><code data-sample="ex/hello/world/app.pl"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/hello/world/app.pl</p>
+    </div>
+
+  </section>
+
+  <section data-transition="fade-out">
+    <h2>Hello World! Test</h2>
+        <div class="mojo include-code">
+      <pre><code class="lang-perl" data-sample="ex/hello/world/test.t"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/hello/world/test.t</p>
+    </div>
+
+</section>
+<section data-transition="fade-in fade-out">    <h2>Hello World! Test</h2>
+        <div class="mojo include-code">
+      <pre><code class="lang-perl" data-sample="ex/hello/world/test.t" data-sample-mark="3,4"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/hello/world/test.t</p>
+    </div>
+
+</section>
+<section data-transition="fade-in fade-out">    <h2>Hello World! Test</h2>
+        <div class="mojo include-code">
+      <pre><code class="lang-perl" data-sample="ex/hello/world/test.t" data-sample-mark="5,7"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/hello/world/test.t</p>
+    </div>
+
+</section>
+<section data-transition="fade-in">    <h2>Hello World! Test</h2>
+        <div class="mojo include-code">
+      <pre><code class="lang-perl" data-sample="ex/hello/world/test.t" data-sample-mark="9-11"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/hello/world/test.t</p>
+    </div>
+
+</section></section>
+
+<section>
+  <section>
+    <h2>What actually happened?</h2>
+    <ul>
+      <li class="fragment">text encoded with utf8</li>
+      <li class="fragment" style="color: red">default content-type is text/html</li>
+    </ul>
+  </section>
+
+  <section data-transition="fade-out">
+    <h2>Hello 🌐!</h2>
+        <div class="mojo include-code">
+      <pre><code data-sample="ex/hello/format/app.pl"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/hello/format/app.pl</p>
+    </div>
+
+</section>
+<section data-transition="fade-in fade-out">    <h2>Hello 🌐!</h2>
+        <div class="mojo include-code">
+      <pre><code data-sample="ex/hello/format/app.pl" data-sample-mark="4"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/hello/format/app.pl</p>
+    </div>
+
+</section>
+<section data-transition="fade-in">    <h2>Hello 🌐!</h2>
+        <div class="mojo include-code">
+      <pre><code data-sample="ex/hello/format/app.pl" data-sample-mark="5"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/hello/format/app.pl</p>
+    </div>
+
+</section>
+  <section>
+    <h2>Hello 🌐! Test</h2>
+        <div class="mojo include-code">
+      <pre><code class="lang-perl" data-sample="ex/hello/format/test.t" data-sample-mark="11,12"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/hello/format/test.t</p>
+    </div>
+
+  </section>
+</section>
+
+<section>
+  <section>
+    <h2>Meeting New Friends</h2>
+    <img src="images/meeting.jpg" style="width: 50%">
+  </section>
+
+  <section data-transition="fade-out">
+    <h2>Hello $user!</h2>
+        <div class="mojo include-code">
+      <pre><code data-sample="ex/hello/user/app.pl"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/hello/user/app.pl</p>
+    </div>
+
+</section>
+<section data-transition="fade-in fade-out">    <h2>Hello $user!</h2>
+        <div class="mojo include-code">
+      <pre><code data-sample="ex/hello/user/app.pl" data-sample-mark="1"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/hello/user/app.pl</p>
+    </div>
+
+</section>
+<section data-transition="fade-in fade-out">    <h2>Hello $user!</h2>
+        <div class="mojo include-code">
+      <pre><code data-sample="ex/hello/user/app.pl" data-sample-mark="3"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/hello/user/app.pl</p>
+    </div>
+
+</section>
+<section data-transition="fade-in fade-out">    <h2>Hello $user!</h2>
+        <div class="mojo include-code">
+      <pre><code data-sample="ex/hello/user/app.pl" data-sample-mark="4"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/hello/user/app.pl</p>
+    </div>
+
+</section>
+<section data-transition="fade-in">    <h2>Hello $user!</h2>
+        <div class="mojo include-code">
+      <pre><code data-sample="ex/hello/user/app.pl" data-sample-mark="5"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/hello/user/app.pl</p>
+    </div>
+
+</section>
+  <section>
+    <h2>Hello $user! Test</h2>
+        <div class="mojo include-code">
+      <pre><code class="lang-perl" data-sample="ex/hello/user/test.t#tests"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/hello/user/test.t</p>
+    </div>
+
+  </section>
+
+  <section>
+    <img src="images/han_shot_first.gif">
+    <p>#HanShotFirst</p>
+  </section>
+</section>
+
+<section>
+  <section>
+    <h2>Other Formats?</h2>
+  </section>
+
+  <section>
+    <img src="images/drone.jpg" style="width: 50%">
+  </section>
+
+  <section data-transition="fade-out">
+    <h2>JSON</h2>
+        <div class="mojo include-code">
+      <pre><code data-sample="ex/hello/json/app.pl"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/hello/json/app.pl</p>
+    </div>
+
+</section>
+<section data-transition="fade-in">    <h2>JSON</h2>
+        <div class="mojo include-code">
+      <pre><code data-sample="ex/hello/json/app.pl" data-sample-mark="5"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/hello/json/app.pl</p>
+    </div>
+
+</section>
+  <section data-transition="fade-out">
+    <h2>JSON Tests</h2>
+        <div class="mojo include-code">
+      <pre><code class="lang-perl" data-sample="ex/hello/json/test.t#tests"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/hello/json/test.t</p>
+    </div>
+
+</section>
+<section data-transition="fade-in fade-out">    <h2>JSON Tests</h2>
+        <div class="mojo include-code">
+      <pre><code class="lang-perl" data-sample="ex/hello/json/test.t#tests" data-sample-mark="3"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/hello/json/test.t</p>
+    </div>
+
+</section>
+<section data-transition="fade-in fade-out">    <h2>JSON Tests</h2>
+        <div class="mojo include-code">
+      <pre><code class="lang-perl" data-sample="ex/hello/json/test.t#tests" data-sample-mark="4"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/hello/json/test.t</p>
+    </div>
+
+</section>
+<section data-transition="fade-in">    <h2>JSON Tests</h2>
+        <div class="mojo include-code">
+      <pre><code class="lang-perl" data-sample="ex/hello/json/test.t#tests" data-sample-mark="5"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/hello/json/test.t</p>
+    </div>
+
+</section></section>
+
+<section>
+  <section>
+    <img src="images/dagobah.jpg" style="width: 60%">
+  </section>
+
+  <section data-transition="fade-out">
+    <h2>Templates</h2>
+        <div class="mojo include-code">
+      <pre><code data-sample="ex/hello/template/app.pl"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/hello/template/app.pl</p>
+    </div>
+
+</section>
+<section data-transition="fade-in fade-out">    <h2>Templates</h2>
+        <div class="mojo include-code">
+      <pre><code data-sample="ex/hello/template/app.pl" data-sample-mark="4"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/hello/template/app.pl</p>
+    </div>
+
+</section>
+<section data-transition="fade-in">    <h2>Templates</h2>
+        <div class="mojo include-code">
+      <pre><code data-sample="ex/hello/template/app.pl" data-sample-mark="13"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/hello/template/app.pl</p>
+    </div>
+
+</section>
+  <section data-transition="fade-out">
+    <h2>CSS Selectors in Tests</h2>
+        <div class="mojo include-code">
+      <pre><code class="lang-perl" data-sample="ex/hello/template/test.t#tests"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/hello/template/test.t</p>
+    </div>
+
+</section>
+<section data-transition="fade-in">    <h2>CSS Selectors in Tests</h2>
+        <div class="mojo include-code">
+      <pre><code class="lang-perl" data-sample="ex/hello/template/test.t#tests" data-sample-mark="4,9"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/hello/template/test.t</p>
+    </div>
+
+</section></section>
+
+<section>
+  <section>
+    <h2>Because we&#39;ve come this far ...</h2>
+  </section>
+
+  <section>
+    <img src="images/attack.jpg" style="width: 60%">
+    <p>Luke, you&#39;ve turned off your targeting computer!</p>
+  </section>
+
+  <section data-transition="fade-out">
+    <h2>Content Negotiation</h2>
+        <div class="mojo include-code">
+      <pre><code data-sample="ex/hello/content_negotiation/app.pl"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/hello/content_negotiation/app.pl</p>
+    </div>
+
+</section>
+<section data-transition="fade-in fade-out">    <h2>Content Negotiation</h2>
+        <div class="mojo include-code">
+      <pre><code data-sample="ex/hello/content_negotiation/app.pl" data-sample-mark="6"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/hello/content_negotiation/app.pl</p>
+    </div>
+
+</section>
+<section data-transition="fade-in">    <h2>Content Negotiation</h2>
+        <div class="mojo include-code">
+      <pre><code data-sample="ex/hello/content_negotiation/app.pl" data-sample-mark="7"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/hello/content_negotiation/app.pl</p>
+    </div>
+
+</section>
+  <section>
+    <h2>Testing Content Negotiation</h2>
+        <div class="mojo include-code">
+      <pre><code class="lang-perl" data-sample="ex/hello/content_negotiation/test.t#root"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/hello/content_negotiation/test.t</p>
+    </div>
+
+  </section>
+
+  <section>
+    <h2>Testing Content Negotiation</h2>
+        <div class="mojo include-code">
+      <pre><code class="lang-perl" data-sample="ex/hello/content_negotiation/test.t#user"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/hello/content_negotiation/test.t</p>
+    </div>
+
+  </section>
+
+  <section>
+    <h2>Other Ways to Negotiate</h2>
+        <div class="mojo include-code">
+      <pre><code class="lang-perl" data-sample="ex/hello/content_negotiation/test.t#others"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/hello/content_negotiation/test.t</p>
+    </div>
+
+  </section>
+</section>
+
+<section>
+  <img src="images/trap.gif">
+</section>
+
+<section>
+  <h1>Let&#39;s Build a Doc Fetching App</h1>
+</section>
+
+<section>
+  <section>
+    <h1>Goal:<h1>
+    <h3>Display Docs Fetched From MetaCPAN</h3>
+  </h1></h1></section>
+
+  <section>
+    <img src="images/vader_cave.jpg" style="width: 60%">
+  </section>
+
+  <section>
+    <h2>Simple MetaCPAN App</h2>
+        <div class="mojo include-code">
+      <pre><code data-sample="ex/metacpan/simple/app.pl"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/metacpan/simple/app.pl</p>
+    </div>
+
+  </section>
+
+  <section>
+    <h2>Mocking An External Service</h2>
+    <img src="images/storm_trooper.jpg" style="width: 60%">
+    <p>Aren&#39;t you a little short for a storm trooper?</p>
+  </section>
+
+  <section>
+    <h2>Mocking An External Service</h2>
+        <div class="mojo include-code">
+      <pre><code class="lang-perl" data-sample="ex/metacpan/simple/test.t#mock"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/metacpan/simple/test.t</p>
+    </div>
+
+  </section>
+
+  <section>
+    <h2>How do we use this mock?</h2>
+    <img src="images/mind_trick.gif">
+  </section>
+
+  <section>
+    <h2>Mocking An External Service</h2>
+    <ul>
+      <li><code>Mojo::UserAgent</code>
+        <ul>
+          <li>server for relative urls</li>
+          <li>accepts a Mojolicious app</li>
+        </ul>
+      </li>
+      <li class="fragment">Attach mock app to the main app&#39;s ua</li>
+      <li class="fragment">MetaCPAN url is configurable!</li>
+    </ul>
+    <div class="fragment">
+          <div class="mojo include-code">
+      <pre><code class="lang-perl" data-sample="ex/metacpan/simple/test.t#install"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/metacpan/simple/test.t</p>
+    </div>
+
+    </div>
+  </section>
+
+  <section>
+    <h2>Test Simple MetaCPAN App</h2>
+        <div class="mojo include-code">
+      <pre><code class="lang-perl" data-sample="ex/metacpan/simple/test.t"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/metacpan/simple/test.t</p>
+    </div>
+
+  </section>
+</section>
+
+<section>
+  <section>
+    <img src="images/hologram.png" style="width: 70%">
+  </section>
+
+  <section data-transition="fade-out">
+    <h2>Smart URL Manipulation</h2>
+        <div class="mojo include-code">
+      <pre><code data-sample="ex/metacpan/url/app.pl#url"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/metacpan/url/app.pl</p>
+    </div>
+
+</section>
+<section data-transition="fade-in fade-out">    <h2>Smart URL Manipulation</h2>
+        <div class="mojo include-code">
+      <pre><code data-sample="ex/metacpan/url/app.pl#url" data-sample-mark="1,2,3,6"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/metacpan/url/app.pl</p>
+    </div>
+
+</section>
+<section data-transition="fade-in">    <h2>Smart URL Manipulation</h2>
+        <div class="mojo include-code">
+      <pre><code data-sample="ex/metacpan/url/app.pl#url" data-sample-mark="7"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/metacpan/url/app.pl</p>
+    </div>
+
+</section></section>
+
+<section>
+  <section>
+    <h1>Goal:</h1>
+    <h3>Fix Link URLs</h3>
+  </section>
+
+  <section>
+    <h2>Mojo::DOM in Action</h2>
+    <h3>Transforming HTML</h3>
+  </section>
+
+  <section>
+    <img src="images/elegant_weapon.jpg" style="width: 70%">
+    <p>An elegant weapon... for a more civilized age</p>
+  </section>
+
+  <section data-transition="fade-out">
+    <h2>Transforming HTML</h2>
+        <div class="mojo include-code">
+      <pre><code data-sample="ex/metacpan/munge_links/app.pl#doc" data-sample-mark="5"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/metacpan/munge_links/app.pl</p>
+    </div>
+
+</section>
+<section data-transition="fade-in fade-out">    <h2>Transforming HTML</h2>
+        <div class="mojo include-code">
+      <pre><code data-sample="ex/metacpan/munge_links/app.pl#doc" data-sample-mark="11"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/metacpan/munge_links/app.pl</p>
+    </div>
+
+</section>
+<section data-transition="fade-in">    <h2>Transforming HTML</h2>
+        <div class="mojo include-code">
+      <pre><code data-sample="ex/metacpan/munge_links/app.pl#doc" data-sample-mark="13"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/metacpan/munge_links/app.pl</p>
+    </div>
+
+</section>
+  <section data-transition="fade-out">
+    <h2>Transforming HTML</h2>
+        <div class="mojo include-code">
+      <pre><code data-sample="ex/metacpan/munge_links/app.pl#munge"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/metacpan/munge_links/app.pl</p>
+    </div>
+
+</section>
+<section data-transition="fade-in fade-out">    <h2>Transforming HTML</h2>
+        <div class="mojo include-code">
+      <pre><code data-sample="ex/metacpan/munge_links/app.pl#munge" data-sample-mark="2"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/metacpan/munge_links/app.pl</p>
+    </div>
+
+</section>
+<section data-transition="fade-in fade-out">    <h2>Transforming HTML</h2>
+        <div class="mojo include-code">
+      <pre><code data-sample="ex/metacpan/munge_links/app.pl#munge" data-sample-mark="3"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/metacpan/munge_links/app.pl</p>
+    </div>
+
+</section>
+<section data-transition="fade-in">    <h2>Transforming HTML</h2>
+        <div class="mojo include-code">
+      <pre><code data-sample="ex/metacpan/munge_links/app.pl#munge" data-sample-mark="4"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/metacpan/munge_links/app.pl</p>
+    </div>
+
+</section>
+  <section data-transition="fade-out">
+    <h2>Testing the Transformation</h2>
+        <div class="mojo include-code">
+      <pre><code class="lang-perl" data-sample="ex/metacpan/munge_links/test.t#test"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/metacpan/munge_links/test.t</p>
+    </div>
+
+</section>
+<section data-transition="fade-in fade-out">    <h2>Testing the Transformation</h2>
+        <div class="mojo include-code">
+      <pre><code class="lang-perl" data-sample="ex/metacpan/munge_links/test.t#test" data-sample-mark="4"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/metacpan/munge_links/test.t</p>
+    </div>
+
+</section>
+<section data-transition="fade-in fade-out">    <h2>Testing the Transformation</h2>
+        <div class="mojo include-code">
+      <pre><code class="lang-perl" data-sample="ex/metacpan/munge_links/test.t#test" data-sample-mark="11"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/metacpan/munge_links/test.t</p>
+    </div>
+
+</section>
+<section data-transition="fade-in">    <h2>Testing the Transformation</h2>
+        <div class="mojo include-code">
+      <pre><code class="lang-perl" data-sample="ex/metacpan/munge_links/test.t#test" data-sample-mark="12"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/metacpan/munge_links/test.t</p>
+    </div>
+
+</section></section>
+
+<section>
+  <section>
+    <h1>Goal:</h1>
+    <h3>Add Distribution and ++ to Doc</h3>
+  </section>
+
+  <section>
+    <h2>We Need More Information from MetaCPAN</h2>
+    <img src="images/interrogation.jpg" style="width: 70%">
+  </section>
+
+  <section>
+    <h3>Its as Simple as ...</h3>
+        <div class="mojo include-code">
+      <pre><code data-sample="ex/metacpan/blocking/app.pl#action" data-sample-mark="5-7"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/metacpan/blocking/app.pl</p>
+    </div>
+
+  </section>
+
+  <section>
+    <h2>Get Dist For Module</h2>
+        <div class="mojo include-code">
+      <pre><code data-sample="ex/metacpan/blocking/app.pl#dist"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/metacpan/blocking/app.pl</p>
+    </div>
+
+    <div class="fragment">
+          <div class="mojo include-code">
+      <pre><code class="lang-perl" data-sample="ex/metacpan/blocking/test.t#dist"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/metacpan/blocking/test.t</p>
+    </div>
+
+    </div>
+  </section>
+
+  <section>
+    <h2>Get Favorite Count For Dist</h2>
+        <div class="mojo include-code">
+      <pre><code data-sample="ex/metacpan/blocking/app.pl#fav"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/metacpan/blocking/app.pl</p>
+    </div>
+
+    <div class="fragment">
+          <div class="mojo include-code">
+      <pre><code class="lang-perl" data-sample="ex/metacpan/blocking/test.t#fav"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/metacpan/blocking/test.t</p>
+    </div>
+
+    </div>
+  </section>
+
+  <section data-transition="fade-out">
+    <h2>Inject New HTML</h2>
+        <div class="mojo include-code">
+      <pre><code data-sample="ex/metacpan/blocking/app.pl#inject"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/metacpan/blocking/app.pl</p>
+    </div>
+
+</section>
+<section data-transition="fade-in fade-out">    <h2>Inject New HTML</h2>
+        <div class="mojo include-code">
+      <pre><code data-sample="ex/metacpan/blocking/app.pl#inject" data-sample-mark="2-5"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/metacpan/blocking/app.pl</p>
+    </div>
+
+</section>
+<section data-transition="fade-in">    <h2>Inject New HTML</h2>
+        <div class="mojo include-code">
+      <pre><code data-sample="ex/metacpan/blocking/app.pl#inject" data-sample-mark="6"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/metacpan/blocking/app.pl</p>
+    </div>
+
+</section>
+  <section>
+    <h2>Full Application</h2>
+        <div class="mojo include-code">
+      <pre><code data-sample="ex/metacpan/blocking/app.pl"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/metacpan/blocking/app.pl</p>
+    </div>
+
+  </section>
+
+  <section>
+    <h2>Full Test</h2>
+        <div class="mojo include-code">
+      <pre><code class="lang-perl" data-sample="ex/metacpan/blocking/test.t"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/metacpan/blocking/test.t</p>
+    </div>
+
+  </section>
+</section>
+
+<section>
+  <img src="images/surprise.gif" style="width: 70%">
+</section>
+
+<section>
+  <section>
+    <h1>Goal:</h1>
+    <h3>Make it Async</h3>
+  </section>
+</section>
+
+<section>
+  <img src="images/hate.gif" style="width: 70%">
+</section>
+
+<section>
+<section data-markdown><script type="text/template">
+## Three basic mechanisms
+</script></section>
+<section data-markdown><script type="text/template">
+## Callbacks
+
+* Old school
+* Not worth it anymore
+</script></section>
+<section data-markdown><script type="text/template">
+## Promises
+
+* Mojo::Promise
+* Object that represents possible future actions
+* Chainable
+* Exception Channel
+</script></section>
+<section data-markdown><script type="text/template">
+## Async/Await
+
+* Uses promises
+* Much more powerful
+* Requires Future::AsyncAwait 0.36+
+</script></section>
+<section data-markdown><script type="text/template">
+## Await Keyword
+
+* Takes a Promise
+* Suspends the interpreter until
+  - the promise resolves, returns result
+  - the promise rejects (errors), throws it
+
+```perl
+  my $result = await returns_promise();
+```
+</script></section>
+<section data-markdown><script type="text/template">
+## Async Functions
+
+* always return promises
+* can call `await`
+
+```perl
+my $async = async sub ($args) {
+  my $result = await returns_promise();
+  ...
+};
+my $promise = $async->($args);
+```
+</script></section>
+<section data-markdown><script type="text/template">
+## Async is ... easy
+
+* await anything that
+  - returns a promise
+  - is marked async
+* mark any function that calls await as async
+* that's it, really*!
+
+<small>* In a Mojo webapp at least</small>
+</script></section></section>
+
+
+  <section data-transition="fade-out">
+    <h2>Async/Await</h2>
+        <div class="mojo include-code">
+      <pre><code data-sample="ex/metacpan/async/app.pl#import"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/metacpan/async/app.pl</p>
+    </div>
+
+</section>
+<section data-transition="fade-in fade-out">    <h2>Async/Await</h2>
+        <div class="mojo include-code">
+      <pre><code data-sample="ex/metacpan/async/app.pl#doc"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/metacpan/async/app.pl</p>
+    </div>
+
+</section>
+<section data-transition="fade-in fade-out">    <h2>Async/Await</h2>
+        <div class="mojo include-code">
+      <pre><code data-sample="ex/metacpan/async/app.pl#doc" data-sample-mark="1,4"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/metacpan/async/app.pl</p>
+    </div>
+
+</section>
+<section data-transition="fade-in fade-out">    <h2>Async/Await</h2>
+        <div class="mojo include-code">
+      <pre><code data-sample="ex/metacpan/async/app.pl#dist"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/metacpan/async/app.pl</p>
+    </div>
+
+</section>
+<section data-transition="fade-in fade-out">    <h2>Async/Await</h2>
+        <div class="mojo include-code">
+      <pre><code data-sample="ex/metacpan/async/app.pl#dist" data-sample-mark="1,4"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/metacpan/async/app.pl</p>
+    </div>
+
+</section>
+<section data-transition="fade-in fade-out">    <h2>Async/Await</h2>
+        <div class="mojo include-code">
+      <pre><code data-sample="ex/metacpan/async/app.pl#favorites"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/metacpan/async/app.pl</p>
+    </div>
+
+</section>
+<section data-transition="fade-in fade-out">    <h2>Async/Await</h2>
+        <div class="mojo include-code">
+      <pre><code data-sample="ex/metacpan/async/app.pl#favorites" data-sample-mark="1,5"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/metacpan/async/app.pl</p>
+    </div>
+
+</section>
+<section data-transition="fade-in fade-out">    <h2>Async/Await</h2>
+        <div class="mojo include-code">
+      <pre><code data-sample="ex/metacpan/async/app.pl#route"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/metacpan/async/app.pl</p>
+    </div>
+
+</section>
+<section data-transition="fade-in">    <h2>Async/Await</h2>
+        <div class="mojo include-code">
+      <pre><code data-sample="ex/metacpan/async/app.pl#route" data-sample-mark="1,3,5,6"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/metacpan/async/app.pl</p>
+    </div>
+
+</section>
+  <section>
+    <h2>Full Application</h2>
+        <div class="mojo include-code">
+      <pre><code data-sample="ex/metacpan/async/app.pl"></code></pre>
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;">ex/metacpan/async/app.pl</p>
+    </div>
+
+  </section>
+
+  <section>
+    <h2>And the Tests ...</h2>
+    <h3 class="fragment">... are unchanged</h3>
+  </section>
+
+
+
+<section>
+  <img src="images/vader_cute.png">
+  <p class="fragment">Questions?</p>
+</section>
+
+<section>
+  <section>
+    <h2>Command System</h2>
+  </section>
+
+  <section>
+    <h2>Start App</h2>
+    <ul>
+      <li><code>./myapp.pl daemon</code></li>
+      <li><code>./myapp.pl prefork</code></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Inspect App</h2>
+    <ul>
+      <li><code>./myapp.pl routes</code></li>
+      <li><code>./myapp.pl eval</code></li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>Add your own</h3>
+    <ul>
+      <li><code>./myapp.pl migrate</code></li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>Or get one from CPAN</h3>
+    <ul>
+      <li><code>./myapp.pl minion worker</code></li>
+      <li><code>./myapp.pl nopaste app.pl</code></li>
+      <li><code>./myapp.pl export</code></li>
+    </ul>
+  </section>
+</section>
+
+			</div>
+
+		</div>
+
+		<script src="revealjs/lib/js/head.min.js"></script>
+		<script src="revealjs/js/reveal.js"></script>
+
+		<script>
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+      
+      var init = {"center":true,"controls":true,"height":700,"history":true,"progress":true,"sampler":{"removeIndentation":true},"transition":"slide","width":1000};
+			// Optional reveal.js plugins
+      init.dependencies = [
+        { src: 'revealjs/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+        { src: 'revealjs/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+        { src: 'revealjs/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+        { src: 'revealjs/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+        { src: 'revealjs/plugin/zoom-js/zoom.js', async: true },
+        { src: 'revealjs/plugin/notes/notes.js', async: true },
+        { src: 'reveal-sampler/sampler.js' }
+      ];
+
+      
+			Reveal.initialize(init);
+
+		</script>
+
+    
+	</body>
+</html>
